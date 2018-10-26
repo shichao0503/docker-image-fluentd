@@ -95,6 +95,7 @@
 
 * `tcp`模式: 用于收集`kong`的日志
 * `mysql_slow_query`: 收集`MySQL`慢日志
+	* 需要挂载`mysql`的慢日志文件, `fluentd`需要实时读取该文件
 * 存储到`es`
 
 ## 版本
