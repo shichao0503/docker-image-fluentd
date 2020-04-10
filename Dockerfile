@@ -1,8 +1,9 @@
-FROM fluent/fluentd:v1.2.5-debian
+FROM fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch
 
-RUN apt-get update && apt-get install -y gcc make ruby2.3-dev \
-&& fluent-gem install fluent-plugin-elasticsearch fluent-plugin-mysqlslowquery \
-&& apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false gcc make \
-&& set -ex \
+COPY ./conf/fluent.conf /fluentd/etc/
+COPY ./conf/systemd.conf /fluentd/etc/
+COPY ./conf/kubernetes.conf /fluentd/etc/
+
+RUN set -ex \
 && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 && echo "Asia/Shanghai" > /etc/timezone
